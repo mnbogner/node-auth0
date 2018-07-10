@@ -1,4 +1,4 @@
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 var getRequestPromise = require('../utils').getRequestPromise;
 
 var ArgumentError = require('rest-facade').ArgumentError;
@@ -55,7 +55,8 @@ var UsersManager = function(options) {
  */
 UsersManager.prototype.getInfo = function(accessToken, cb) {
   var url = this.baseUrl + '/userinfo';
-  var headers = extend({}, this.headers);
+  //var headers = extend({}, this.headers);
+  var headers = Object.assign({}, this.headers);
 
   if (accessToken === null || accessToken === undefined) {
     throw new ArgumentError('An access token is required');
@@ -151,8 +152,10 @@ UsersManager.prototype.impersonate = function(userId, settings, cb) {
     throw new ArgumentError('token field is required');
   }
 
-  var data = extend({ client_id: settings.clientId || this.clientId }, settings);
-  var headers = extend({ Authorization: `Bearer ${settings.token}` }, this.headers);
+  //var data = extend({ client_id: settings.clientId || this.clientId }, settings);
+  var data = Object.assign({ client_id: settings.clientId || this.clientId }, settings);
+  //var headers = extend({ Authorization: `Bearer ${settings.token}` }, this.headers);
+  var data = Object.assign({ Authorization: `Bearer ${settings.token}` }, this.headers);
   // Perform the request.
   var promise = getRequestPromise({
     method: 'POST',

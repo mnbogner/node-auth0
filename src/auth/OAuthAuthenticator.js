@@ -1,4 +1,4 @@
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 
 var ArgumentError = require('rest-facade').ArgumentError;
 var RestClient = require('rest-facade').Client;
@@ -85,7 +85,8 @@ OAuthAuthenticator.prototype.signIn = function(userData, cb) {
     grant_type: 'password',
     scope: 'openid'
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');
@@ -150,7 +151,8 @@ OAuthAuthenticator.prototype.passwordGrant = function(userData, cb) {
     client_secret: this.clientSecret,
     grant_type: 'password'
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');
@@ -222,7 +224,8 @@ OAuthAuthenticator.prototype.clientCredentialsGrant = function(options, cb) {
     client_secret: this.clientSecret
   };
 
-  var data = extend(defaultFields, options);
+  //var data = extend(defaultFields, options);
+  var data = Object.assign(defaultFields, options);
 
   if (!options || typeof options !== 'object') {
     throw new ArgumentError('Missing options object');

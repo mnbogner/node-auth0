@@ -1,6 +1,6 @@
 /** @module management */
 
-var util = require('util');
+//var util = require('util');
 
 var pkg = require('../../package.json');
 var utils = require('../utils');
@@ -27,8 +27,10 @@ var ManagementTokenProvider = require('./ManagementTokenProvider');
 var RulesConfigsManager = require('./RulesConfigsManager');
 var EmailTemplatesManager = require('./EmailTemplatesManager');
 
-var BASE_URL_FORMAT = 'https://%s/api/v2';
-var MANAGEMENT_API_AUD_FORMAT = 'https://%s/api/v2/';
+//var BASE_URL_FORMAT = 'https://%s/api/v2';
+//var MANAGEMENT_API_AUD_FORMAT = 'https://%s/api/v2/';
+var BASE_URL_PREFIX = 'https://';
+var BASE_URL_SUFFIX = '/api/v2';
 
 /**
  * @class ManagementClient
@@ -95,7 +97,9 @@ var ManagementClient = function(options) {
     throw new ArgumentError('Must provide a domain');
   }
 
-  var baseUrl = util.format(BASE_URL_FORMAT, options.domain);
+  //var baseUrl = util.format(BASE_URL_FORMAT, options.domain);
+  var baseUrl = BASE_URL_PREFIX + options.domain + BASE_URL_SUFFIX;
+
   var managerOptions = {
     headers: {
       'User-agent': 'node.js/' + process.version.replace('v', ''),
@@ -104,9 +108,12 @@ var ManagementClient = function(options) {
     baseUrl: baseUrl
   };
 
+  var assembledAudience = BASE_URL_PREFIX + options.domain + BASE_URL_SUFFIX;
+
   if (options.token === undefined) {
     var config = assign(
-      { audience: util.format(MANAGEMENT_API_AUD_FORMAT, options.domain) },
+      //{ audience: util.format(MANAGEMENT_API_AUD_FORMAT, options.domain) },
+      { audience: assembledAudience },
       options
     );
 

@@ -1,5 +1,5 @@
 var request = require('request');
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 var Promise = require('bluebird');
 var fs = require('fs');
 
@@ -128,12 +128,15 @@ JobsManager.prototype.get = function(params, cb) {
  */
 JobsManager.prototype.importUsers = function(data, cb) {
   var options = this.options;
-  var headers = extend({}, options.headers);
+  //var headers = extend({}, options.headers);
+  var headers = Object.assign({}, options.headers);
 
   headers['Content-Type'] = 'multipart/form-data';
 
   var url = options.baseUrl + '/jobs/users-imports';
   var method = 'POST';
+
+  var assembledHeaders = Object.assign({ Authorization: `Bearer ${access_token}` }, headers);
 
   var promise = options.tokenProvider.getAccessToken().then(function(access_token) {
     return new Promise(function(resolve, reject) {
@@ -141,7 +144,8 @@ JobsManager.prototype.importUsers = function(data, cb) {
         {
           url: url,
           method: method,
-          headers: extend({ Authorization: `Bearer ${access_token}` }, headers),
+          //headers: extend({ Authorization: `Bearer ${access_token}` }, headers),
+          headers: assembledHeaders
           formData: {
             users: {
               value: data.users_json

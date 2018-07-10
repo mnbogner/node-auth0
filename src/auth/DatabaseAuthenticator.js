@@ -1,4 +1,4 @@
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 
 var ArgumentError = require('rest-facade').ArgumentError;
 var RestClient = require('rest-facade').Client;
@@ -77,7 +77,8 @@ DatabaseAuthenticator.prototype.signIn = function(userData, cb) {
   var defaultFields = {
     connection: 'Username-Password-Authentication'
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');
@@ -135,7 +136,8 @@ DatabaseAuthenticator.prototype.signUp = function(userData, cb) {
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');
@@ -204,7 +206,8 @@ DatabaseAuthenticator.prototype.changePassword = function(userData, cb) {
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');
@@ -270,7 +273,8 @@ DatabaseAuthenticator.prototype.requestChangePasswordEmail = function(userData, 
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   if (!userData || typeof userData !== 'object') {
     throw new ArgumentError('Missing user data object');

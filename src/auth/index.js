@@ -1,6 +1,6 @@
 /** @module auth **/
 
-var util = require('util');
+//var util = require('util');
 
 var pkg = require('../../package.json');
 var utils = require('../utils');
@@ -16,7 +16,8 @@ var PasswordlessAuthenticator = require('./PasswordlessAuthenticator');
 var UsersManager = require('./UsersManager');
 var TokensManager = require('./TokensManager');
 
-var BASE_URL_FORMAT = 'https://%s';
+//var BASE_URL_FORMAT = 'https://%s';
+var BASE_URL_PREFIX = 'https://';
 
 /**
  * @class
@@ -54,6 +55,8 @@ var AuthenticationClient = function(options) {
     throw new ArgumentError('Must provide a domain');
   }
 
+  var assembledUrl = BASE_URL_PREFIX + options.domain;
+
   var managerOptions = {
     clientId: options.clientId,
     domain: options.domain,
@@ -62,7 +65,8 @@ var AuthenticationClient = function(options) {
       'User-agent': 'node.js/' + process.version.replace('v', ''),
       'Content-Type': 'application/json'
     },
-    baseUrl: util.format(BASE_URL_FORMAT, options.domain)
+    //baseUrl: util.format(BASE_URL_FORMAT, options.domain)
+    baseUrl: assembledUrl;
   };
 
   if (options.telemetry !== false) {

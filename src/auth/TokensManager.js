@@ -1,4 +1,4 @@
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 var getRequestPromise = require('../utils').getRequestPromise;
 
 var ArgumentError = require('rest-facade').ArgumentError;
@@ -55,7 +55,8 @@ var TokensManager = function(options) {
  * @return  {Promise|undefined}
  */
 TokensManager.prototype.getInfo = function(idToken, cb) {
-  var headers = extend({}, this.headers);
+  //var headers = extend({}, this.headers);
+  var headers = Object.assign({}, this.headers);
 
   if (idToken === null || idToken === undefined) {
     throw new ArgumentError('An ID token is required');
@@ -123,7 +124,8 @@ TokensManager.prototype.getInfo = function(idToken, cb) {
  * @return  {Promise|undefined}
  */
 TokensManager.prototype.getDelegationToken = function(data, cb) {
-  var body = extend({ client_id: this.clientId }, data);
+  //var body = extend({ client_id: this.clientId }, data);
+  var body = Object.assign({ client_id: this.clientId }, data);
   var headers = this.headers;
 
   if (!data) {

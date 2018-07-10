@@ -1,4 +1,4 @@
-var extend = require('util')._extend;
+//var extend = require('util')._extend;
 
 var ArgumentError = require('rest-facade').ArgumentError;
 var RestClient = require('rest-facade').Client;
@@ -82,7 +82,8 @@ PasswordlessAuthenticator.prototype.signIn = function(userData, cb) {
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   // Don't let the user override the connection nor the grant type.
   if (!data.connection || (data.connection !== 'email' && data.connection !== 'sms')) {
@@ -154,7 +155,8 @@ PasswordlessAuthenticator.prototype.sendEmail = function(userData, cb) {
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   // Don't let the user override the connection nor the grant type.
   data.connection = 'email';
@@ -212,7 +214,8 @@ PasswordlessAuthenticator.prototype.sendSMS = function(userData, cb) {
   var defaultFields = {
     client_id: this.clientId
   };
-  var data = extend(defaultFields, userData);
+  //var data = extend(defaultFields, userData);
+  var data = Object.assign(defaultFields, userData);
 
   // Don't let the user override the connection nor the grant type.
   data.connection = 'sms';
